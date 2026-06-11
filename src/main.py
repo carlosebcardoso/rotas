@@ -35,6 +35,20 @@ destino = input("Informe o Estado que deseja ir (Ex: MA): ")
 
 menores_custos_ida, melhores_rotas_ida = acha_menores(grafo_voos, origem)
 menores_custos_volta, melhores_rotas_volta = acha_menores(grafo_voos, destino)
+melhor_rota_ida = f"{melhores_rotas_ida[destino]}"
+melhor_rota_volta = f"{melhores_rotas_volta[origem]}"
+melhor_rota = ""
+
+for i in range(len(melhor_rota_ida)):
+  melhor_rota += melhor_rota_ida[i]
+  if i % 2 > 0:
+      melhor_rota += ", "
+
+for i in range(len(melhor_rota_volta)):
+  if i >= 2:
+    melhor_rota += melhor_rota_volta[i]
+    if i % 2 > 0 and i < len(melhor_rota_volta) - 1:
+        melhor_rota += ", "
 
 minimo_total = menores_custos_ida[destino] + menores_custos_volta[origem]
-print("Os menores custos de voos são:\nIda   -> ", menores_custos_ida[destino], "\nVolta -> ", menores_custos_volta[origem], "\nTotal -> ", minimo_total, "\nE eles seguem este circuito:\n", melhores_rotas_ida[destino], melhores_rotas_volta[origem])
+print("Os menores custos de voos são:\nIda   -> ", menores_custos_ida[destino], "\nVolta -> ", menores_custos_volta[origem], "\nTotal -> ", minimo_total, "\nE eles seguem este circuito:\n", melhor_rota)
