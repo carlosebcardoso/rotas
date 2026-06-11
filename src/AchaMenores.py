@@ -5,7 +5,7 @@ def AchaMenores(g, vOrigem):
 
   while len(verificados) < len(g):
     vAtual = None
-    menorCusto = float('inf)
+    menorCusto = float('inf')
 
     for v in g:
       if v not in verificados and menoresCustos[v] < menorCusto:
