@@ -2,49 +2,48 @@ from mock import AIRPORTS_DICT, ROUTES, get_adjacency
 
 def dijkstra(origin: str, dest: str, criterion: str = "tempo"):
     graph = get_adjacency(criterion)
-    
-    dist = {n: float("inf") for n in graph}
-    prev = {n: None for n in graph}
-    visited = {n: False for n in graph}
-    
+
+    dist = {v: float("inf") for v in graph}
+    path = {v: [] for v in graph}
+
     dist[origin] = 0
-    
-    while True:
+    path[origin] = [origin]
+
+    visited = set()
+
+    while len(visited) < len(graph):
         u = None
         min_dist = float("inf")
-        
-        for node in graph:
-            if not visited[node] and dist[node] < min_dist:
-                min_dist = dist[node]
-                u = node
-        
+
+        for v in graph:
+            if v not in visited and dist[v] < min_dist:
+                min_dist = dist[v]
+                u = v
+
         if u is None:
             break
-            
+
         if u == dest:
             break
-            
-        visited[u] = True
-        
-        for v, w in graph[u]:
-            if not visited[v]:
-                nd = dist[u] + w
-                if nd < dist[v]:
-                    dist[v] = nd
-                    prev[v] = u
-    
-    path, cur = [], dest
-    while cur is not None:
-        path.append(cur)
-        cur = prev[cur]
-    path.reverse()
-    
-    if not path or path[0] != origin:
-        return None, None, None
-    
-    edges = [(path[i], path[i + 1]) for i in range(len(path) - 1)]
-    return path, dist[dest], edges
 
+        visited.add(u)
+
+        for v, w in graph[u]:
+            new_dist = dist[u] + w
+
+            if new_dist < dist[v]:
+                dist[v] = new_dist
+                path[v] = path[u] + [v]
+
+    if not path[dest]:
+        return None, None, None
+
+    edges = [
+        (path[dest][i], path[dest][i + 1])
+        for i in range(len(path[dest]) - 1)
+    ]
+
+    return path[dest], dist[dest], edges
 
 def get_route_weight(origem: str, destino: str, criterion: str) -> int:
     idx = 2 if criterion == "tempo" else 3
