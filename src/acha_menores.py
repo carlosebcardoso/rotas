@@ -1,4 +1,4 @@
-def AchaMenores(g, vOrigem):
+def acha_menores(g, vOrigem):
   menoresCustos = {v: float('inf') for v in g}
   menoresCustos[vOrigem] = 0
   verificados = set()
