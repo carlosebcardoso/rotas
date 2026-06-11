@@ -1,6 +1,8 @@
 def acha_menores(g, v_origem):
   menores_custos = {v: float('inf') for v in g}
+  melhor_rota = {v: [] for v in g}
   menores_custos[v_origem] = 0
+  melhor_rota[v_origem] = v_origem
   verificados = set()
 
   while len(verificados) < len(g):
@@ -22,5 +24,6 @@ def acha_menores(g, v_origem):
 
       if novo_custo < menores_custos[v_destino]:
         menores_custos[v_destino] = novo_custo
+        melhor_rota[v_destino] = melhor_rota[v_atual] + v_destino
 
-  return menores_custos
+  return menores_custos, melhor_rota
