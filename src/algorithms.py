@@ -1,34 +1,47 @@
-import heapq
 from mock import AIRPORTS_DICT, ROUTES, get_adjacency
-
 
 def dijkstra(origin: str, dest: str, criterion: str = "tempo"):
     graph = get_adjacency(criterion)
-    dist  = {n: float("inf") for n in graph}
-    prev  = {n: None for n in graph}
+    
+    dist = {n: float("inf") for n in graph}
+    prev = {n: None for n in graph}
+    visited = {n: False for n in graph}
+    
     dist[origin] = 0
-    heap = [(0, origin)]
-
-    while heap:
-        d, u = heapq.heappop(heap)
-        if d > dist[u]:
-            continue
+    
+    while True:
+        u = None
+        min_dist = float("inf")
+        
+        for node in graph:
+            if not visited[node] and dist[node] < min_dist:
+                min_dist = dist[node]
+                u = node
+        
+        if u is None:
+            break
+            
+        if u == dest:
+            break
+            
+        visited[u] = True
+        
         for v, w in graph[u]:
-            nd = dist[u] + w
-            if nd < dist[v]:
-                dist[v] = nd
-                prev[v] = u
-                heapq.heappush(heap, (nd, v))
-
+            if not visited[v]:
+                nd = dist[u] + w
+                if nd < dist[v]:
+                    dist[v] = nd
+                    prev[v] = u
+    
     path, cur = [], dest
-    while cur:
+    while cur is not None:
         path.append(cur)
         cur = prev[cur]
     path.reverse()
-
+    
     if not path or path[0] != origin:
         return None, None, None
-
+    
     edges = [(path[i], path[i + 1]) for i in range(len(path) - 1)]
     return path, dist[dest], edges
 
