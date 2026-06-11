@@ -1,0 +1,7 @@
+[theme]
+base = "light"                  # ou "dark"
+primaryColor    = "#2563eb"     # botões primários, sliders, checkboxes
+backgroundColor = "#f8fafc"     # fundo da página
+secondaryBackgroundColor = "#f1f5f9"  # fundo do painel lateral / cards
+textColor       = "#0f172a"
+font            = "sans serif"  # "sans serif" | "serif" | "monospace"
