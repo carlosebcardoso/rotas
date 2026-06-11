@@ -35,4 +35,4 @@ menoresCustosIda = AchaMenores(grafoVoos, origem)
 menoresCustosVolta = AchaMenores(grafoVoos, destino)
 
 minimoTotal = menoresCustosIda[destino] + menoresCustosVolta[origem]
-print("Os menores custos são:\nIda -> ", menoresCustosIda[destino], "\nVolta -> ", menoresCustosVolta[origem], "\nTotal -> ", minimoTotal)
+print("Os menores custos de voos são:\nIda -> ", menoresCustosIda[destino], "\nVolta -> ", menoresCustosVolta[origem], "\nTotal -> ", minimoTotal)
