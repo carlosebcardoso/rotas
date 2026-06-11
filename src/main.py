@@ -37,4 +37,4 @@ menores_custos_ida, melhores_rotas_ida = acha_menores(grafo_voos, origem)
 menores_custos_volta, melhores_rotas_volta = acha_menores(grafo_voos, destino)
 
 minimo_total = menores_custos_ida[destino] + menores_custos_volta[origem]
-print("Os menores custos de voos são:\nIda   -> ", menores_custos_ida[destino], "\nVolta -> ", menores_custos_volta[origem], "\nTotal -> ", minimo_total, "\nE os voos seguem este circuito:\n", melhores_rotas_ida, melhores_rotas_volta)
+print("Os menores custos de voos são:\nIda   -> ", menores_custos_ida[destino], "\nVolta -> ", menores_custos_volta[origem], "\nTotal -> ", minimo_total, "\nE eles seguem este circuito:\n", melhores_rotas_ida[destino], melhores_rotas_volta[origem])
