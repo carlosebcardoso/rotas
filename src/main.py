@@ -1,4 +1,4 @@
-Voos = {
+grafoVoos = {
   "AC": [("AC", 0), ("AL", 494), ("AP", 1197), ("AM", 609), ("BA", 797), ("CE", 819), ("DF", 1206), ("ES", 1003), ("GO", 475), ("MA", 389), ("MT", 1155), ("MS", 826), ("MG", 367), ("PA", 1347), ("PB", 618), ("PR", 564), ("PE", 1252), ("PI", 1076), ("RJ", 155), ("RN", 267), ("RS", 1375), ("RO", 1268), ("RR", 222), ("SC", 877), ("SP", 1235), ("SE", 839), ("TO", 514)]
   "AL": [("AC", 1495), ("AL", 0), ("AP", 1209), ("AM", 1420), ("BA", 1240), ("CE", 247), ("DF", 751), ("ES", 1313), ("GO", 704), ("MA", 699), ("MT", 820), ("MS", 244), ("MG", 1470), ("PA", 232), ("PB", 420), ("PR", 1159), ("PE", 514), ("PI", 733), ("RJ", 484), ("RN", 260), ("RS", 485), ("RO", 442), ("RR", 686), ("SC", 532), ("SP", 1403), ("SE", 275), ("TO", 1047)]
   "AP": [("AC", 484), ("AL", 483), ("AP", 0), ("AM", 1235), ("BA", 222), ("CE", 1399), ("DF", 885), ("ES", 956), ("GO", 957), ("MA", 1303), ("MT", 1106), ("MS", 1084), ("MG", 1185), ("PA", 1101), ("PB", 938), ("PR", 1133), ("PE", 1023), ("PI", 666), ("RJ", 1094), ("RN", 433), ("RS", 1220), ("RO", 1259), ("RR", 484), ("SC", 812), ("SP", 1144), ("SE", 488), ("TO", 154)]
@@ -27,3 +27,12 @@ Voos = {
   "SE": [("AC", 396), ("AL", 1459), ("AP", 611), ("AM", 721), ("BA", 384), ("CE", 995), ("DF", 1464), ("ES", 1093), ("GO", 597), ("MA", 281), ("MT", 1140), ("MS", 967), ("MG", 1102), ("PA", 497), ("PB", 1493), ("PR", 1425), ("PE", 1056), ("PI", 1223), ("RJ", 630), ("RN", 686), ("RS", 1457), ("RO", 851), ("RR", 959), ("SC", 859), ("SP", 679), ("SE", 0), ("TO", 826)]
   "TO": [("AC", 1098), ("AL", 1233), ("AP", 194), ("AM", 1119), ("BA", 1199), ("CE", 425), ("DF", 963), ("ES", 894), ("GO", 691), ("MA", 151), ("MT", 200), ("MS", 1134), ("MG", 826), ("PA", 269), ("PB", 1408), ("PR", 460), ("PE", 934), ("PI", 1425), ("RJ", 415), ("RN", 891), ("RS", 150), ("RO", 557), ("RR", 557), ("SC", 823), ("SP", 459), ("SE", 350), ("TO", 0)]
 }
+
+origem = input("Informe o Estado de onde deseja sair (Ex: MA): ")
+destino = input("Informe o Estado que deseja ir (Ex: MA): ")
+
+menoresCustosIda = AchaMenores(grafoVoos, origem)
+menoresCustosVolta = AchaMenores(grafoVoos, destino)
+
+minimoTotal = menoresCustosIda[destino] + menoresCustosVolta[origem]
+print("Os menores custos são:\nIda -> ", menoresCustosIda[destino], "\nVolta -> ", menoresCustosVolta[origem], "\nTotal -> ", minimoTotal)
