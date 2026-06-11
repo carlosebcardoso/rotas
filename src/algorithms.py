@@ -3,47 +3,53 @@ from mock import AIRPORTS_DICT, ROUTES, get_adjacency
 def dijkstra(origin: str, dest: str, criterion: str = "tempo"):
     graph = get_adjacency(criterion)
 
-    dist = {v: float("inf") for v in graph}
-    path = {v: [] for v in graph}
+    menores_custos = {v: float("inf") for v in graph}
+    melhor_rota = {v: [] for v in graph}
 
-    dist[origin] = 0
-    path[origin] = [origin]
+    menores_custos[origin] = 0
+    melhor_rota[origin] = [origin]
 
-    visited = set()
+    verificados = set()
 
-    while len(visited) < len(graph):
-        u = None
-        min_dist = float("inf")
+    while len(verificados) < len(graph):
+        v_atual = None
+        menor_custo = float("inf")
 
         for v in graph:
-            if v not in visited and dist[v] < min_dist:
-                min_dist = dist[v]
-                u = v
+            if v not in verificados and menores_custos[v] < menor_custo:
+                menor_custo = menores_custos[v]
+                v_atual = v
 
-        if u is None:
+        if v_atual is None:
             break
 
-        if u == dest:
+        if v_atual == dest:
             break
 
-        visited.add(u)
+        verificados.add(v_atual)
 
-        for v, w in graph[u]:
-            new_dist = dist[u] + w
+        for v_destino, custo in graph[v_atual]:
+            novo_custo = menores_custos[v_atual] + custo
 
-            if new_dist < dist[v]:
-                dist[v] = new_dist
-                path[v] = path[u] + [v]
+            if novo_custo < menores_custos[v_destino]:
+                menores_custos[v_destino] = novo_custo
+                melhor_rota[v_destino] = (
+                    melhor_rota[v_atual] + [v_destino]
+                )
 
-    if not path[dest]:
+    if not melhor_rota[dest]:
         return None, None, None
 
     edges = [
-        (path[dest][i], path[dest][i + 1])
-        for i in range(len(path[dest]) - 1)
+        (melhor_rota[dest][i], melhor_rota[dest][i + 1])
+        for i in range(len(melhor_rota[dest]) - 1)
     ]
 
-    return path[dest], dist[dest], edges
+    return (
+        melhor_rota[dest],
+        menores_custos[dest],
+        edges,
+    )
 
 def get_route_weight(origem: str, destino: str, criterion: str) -> int:
     idx = 2 if criterion == "tempo" else 3
